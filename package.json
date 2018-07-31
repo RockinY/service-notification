@@ -2,7 +2,9 @@
   "name": "service-notification",
   "version": "0.0.1",
   "description": "Notification worker",
-  "scripts": {
-  },
-  "author": "BranLiang"
+  "scripts": {},
+  "author": "BranLiang",
+  "devDependencies": {
+    "flow-bin": "^0.77.0"
+  }
 }
