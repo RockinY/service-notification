@@ -1,2 +1,2 @@
 // @flow
-import createWorker from './'
+import createWorker from './utils/createWorker'
