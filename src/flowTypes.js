@@ -137,3 +137,10 @@ export type DBUser = {
   modifiedAt: ?Date,
   bannedAt: ?Date
 }
+
+export type DBDirectMessageThread = {
+  createdAt: Date,
+  id: string,
+  name?: string,
+  threadLastActive: Date
+}
