@@ -144,3 +144,19 @@ export type DBDirectMessageThread = {
   name?: string,
   threadLastActive: Date
 }
+
+type NotificationPayload = {
+  id: string,
+  payload: string,
+  type: EntityTypes
+}
+
+export type DBNotification = {
+  id: string,
+  actors: Array<NotificationPayload>,
+  context: NotificationPayload,
+  createdAt: Date,
+  entities: Array<NotificationPayload>,
+  event: EntityTypes,
+  modifiedAt: Date
+}
