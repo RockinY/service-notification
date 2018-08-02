@@ -11,9 +11,12 @@
     "flow-bin": "^0.77.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bull": "^3.4.4",
+    "cryptr": "^4.0.0",
     "draft-js": "^0.10.5",
     "ioredis": "^3.2.2",
+    "querystring": "^0.2.0",
     "rethinkdbdash": "^2.3.31",
     "toobusy-js": "^0.5.1"
   }

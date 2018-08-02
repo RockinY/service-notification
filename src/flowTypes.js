@@ -160,3 +160,39 @@ export type DBNotification = {
   event: EntityTypes,
   modifiedAt: Date
 }
+
+export type DBUsersNotifications = {
+  id: string,
+  createdAt: Date,
+  entityAddedAt: Date,
+  isRead: boolean,
+  isSeen: boolean,
+  notificationId: string,
+  userId: string
+}
+
+type NotificationSetting = { email: boolean };
+export type DBUsersSettings = {
+  id: string,
+  userId: string,
+  notifications: {
+    types: {
+      dailyDigest: NotificationSetting,
+      newDirectMessage: NotificationSetting,
+      newMessageInThreads: NotificationSetting,
+      newThreadCreated: NotificationSetting,
+      weeklyDigest: NotificationSetting,
+      newMention: NotificationSetting,
+    },
+  },
+};
+
+export type DBUsersThreads = {
+  id: string,
+  createdAt: Date,
+  isParticipant: boolean,
+  receiveNotifications: boolean,
+  threadId: string,
+  userId: string,
+  lastSeen?: Date | number
+}

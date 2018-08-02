@@ -61,3 +61,81 @@ export const updateNotification = (
       returnChanges: true
     })
 }
+
+export const getNotifications = (notificationIds: Array<string>) => {
+  return db
+    .table('notifications')
+    .getAll(...notificationIds)
+    .eqJoin('id', db.table('usersNotifications'), { index: 'notificationId' })
+    .without({ right: ['id'] })
+    .zip()
+    .run();
+}
+
+export const getNotification = (
+  notificationId: string
+): Promise<DBNotification> => {
+  return db
+    .table('notifications')
+    .get(notificationId)
+    .run();
+}
+
+const hasChanged = (field: string) => {
+  return db
+    .row('old_val')(field)
+    .ne(db.row('new_val')(field))
+}
+
+const MODIFIED_AT_CHANGED = hasChanged('entityAddedAt')
+
+export const listenToNewNotifications = (cb: Function): Function => {
+  return db
+    .table('usersNotifications')
+    .changes({
+      includeInitial: false,
+    })
+    .filter(newDocuments(db).or(MODIFIED_AT_CHANGED))('new_val')
+    .eqJoin('notificationId', db.table('notifications'))
+    .without({
+      left: ['notificationId', 'createdAt', 'id', 'entityAddedAt'],
+    })
+    .zip()
+    .filter(row => row('context')('type').ne('DIRECT_MESSAGE_THREAD'))
+    .run({ cursor: true }, (err, cursor) => {
+      if (err) throw err;
+      cursor.each((err, data) => {
+        if (err) throw err;
+        // For some reason this can be called without data, in which case
+        // we don't want to call the callback with it obviously
+        if (!data) return;
+        // Call the passed callback with the notification
+        cb(data);
+      });
+    });
+};
+
+export const listenToNewDirectMessageNotifications = (
+  cb: Function
+): Function => {
+  return db
+    .table('usersNotifications')
+    .changes({
+      includeInitial: false,
+    })
+    .filter(newDocuments(db).or(MODIFIED_AT_CHANGED))('new_val')
+    .eqJoin('notificationId', db.table('notifications'))
+    .without({
+      left: ['notificationId', 'createdAt', 'id', 'entityAddedAt'],
+    })
+    .zip()
+    .filter(row => row('context')('type').eq('DIRECT_MESSAGE_THREAD'))
+    .run({ cursor: true }, (err, cursor) => {
+      if (err) throw err;
+      cursor.each((err, data) => {
+        if (err) throw err;
+        // Call the passed callback with the notification
+        cb(data);
+      });
+    });
+};
