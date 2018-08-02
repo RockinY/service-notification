@@ -1,6 +1,6 @@
 // @flow
-const { db } = require('./db');
-import type { DBUsersThreads } from 'shared/types';
+import db from './db'
+import type { DBUsersThreads } from '../flowTypes';
 
 export const getThreadNotificationUsers = (
   id: string
