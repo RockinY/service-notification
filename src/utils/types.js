@@ -1,5 +1,6 @@
 import type {
-  DBMessage
+  DBMessage,
+  DBChannel
 } from '../flowTypes'
 
 export type Job<JobData> = {|
@@ -18,6 +19,12 @@ export type CommunityNotificationJobData = {
   communityId: string,
   userId: string,
 }
+
+export type ChannelNotificationJobData = {
+  channel: DBChannel,
+  userId: string,
+};
+
 
 export type Queues = {
   
