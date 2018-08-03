@@ -1,6 +1,6 @@
 // @flow
 const debug = require('debug')('athena:queue:channel-notification');
-import Raven from '../../shared/raven';
+import Raven from '../utils/raven';
 import { fetchPayload, createPayload } from '../utils/payloads';
 import { getDistinctActors } from '../utils/actors';
 import { getMembersInCommunity } from '../models/usersCommunities';
@@ -13,7 +13,7 @@ import {
   storeUsersNotifications,
   markUsersNotificationsAsNew,
 } from '../models/usersNotifications';
-import type { Job, ChannelNotificationJobData } from 'shared/bull/types';
+import type { Job, ChannelNotificationJobData } from '../utils/types';
 
 export default async (job: Job<ChannelNotificationJobData>) => {
   const incomingChannel = job.data.channel;
