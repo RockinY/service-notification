@@ -55,6 +55,17 @@ export type PrivateChannelRequestJobData = {
   channel: DBChannel,
 };
 
+export type PrivateCommunityRequestApprovedJobData = {
+  userId: string,
+  communityId: string,
+  moderatorId: string,
+};
+
+export type PrivateCommunityRequestJobData = {
+  userId: string,
+  communityId: string,
+};
+
 export type Queues = {
   
 }
