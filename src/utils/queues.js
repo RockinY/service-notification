@@ -1,9 +1,10 @@
 const createQueue = require('./createQueue')
-import type { Queues } from './types'
+import type { Queues } from '../flowTypes'
 const EventEmitter = require('events')
 
 exports.QUEUE_NAMES = {
   sendNotificationAsPushQueue: 'SEND_PUSH_NOTIFICATIONS'
+  sendMentionNotificationQueue: 'MENTION_NOTIFICATION'
 }
 
 // We add one error listener per queue, so we have to set the max listeners
