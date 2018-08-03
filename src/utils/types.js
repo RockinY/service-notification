@@ -35,6 +35,14 @@ export type DirectMessageNotificationJobData = {
   userId: string,
 };
 
+export type MentionNotificationJobData = {
+  messageId?: string, // This is only set if it's a message mention notification
+  threadId: string, // This is always set, no matter if it's a message or thread mention notification
+  senderId: string,
+  username: ?string,
+  type: 'message' | 'thread',
+};
+
 export type Queues = {
   
 }
