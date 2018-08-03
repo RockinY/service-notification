@@ -25,6 +25,11 @@ export type ChannelNotificationJobData = {
   userId: string,
 };
 
+export type CommunityNotificationJobData = {
+  communityId: string,
+  userId: string,
+};
+
 
 export type Queues = {
   
