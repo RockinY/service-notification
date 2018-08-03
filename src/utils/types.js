@@ -43,6 +43,13 @@ export type MentionNotificationJobData = {
   type: 'message' | 'thread',
 };
 
+export type PrivateChannelRequestApprovedJobData = {
+  userId: string,
+  channelId: string,
+  communityId: string,
+  moderatorId: string,
+};
+
 export type Queues = {
   
 }
