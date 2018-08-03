@@ -30,6 +30,10 @@ export type CommunityNotificationJobData = {
   userId: string,
 };
 
+export type DirectMessageNotificationJobData = {
+  message: DBMessage,
+  userId: string,
+};
 
 export type Queues = {
   
