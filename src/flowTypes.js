@@ -205,3 +205,12 @@ export type DBReaction = {
   type: ReactionType,
   userId: string,
 };
+
+export type DBThreadReaction = {
+  id: string,
+  threadId: string,
+  createdAt: Date,
+  type: ReactionType,
+  deletedAt?: Date,
+  userId: string,
+};

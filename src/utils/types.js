@@ -2,7 +2,8 @@ import type {
   DBMessage,
   DBChannel,
   DBReaction,
-  DBThread
+  DBThread,
+  DBThreadReaction
 } from '../flowTypes'
 
 export type Job<JobData> = {|
@@ -70,6 +71,11 @@ export type PrivateCommunityRequestJobData = {
 
 export type ReactionNotificationJobData = {
   reaction: DBReaction,
+  userId: string,
+};
+
+export type ThreadReactionNotificationJobData = {
+  threadReaction: DBThreadReaction,
   userId: string,
 };
 
