@@ -50,6 +50,11 @@ export type PrivateChannelRequestApprovedJobData = {
   moderatorId: string,
 };
 
+export type PrivateChannelRequestJobData = {
+  userId: string,
+  channel: DBChannel,
+};
+
 export type Queues = {
   
 }
