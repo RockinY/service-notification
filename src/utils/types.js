@@ -79,6 +79,12 @@ export type ThreadReactionNotificationJobData = {
   userId: string,
 };
 
+export type UserThreadLastSeenJobData = {
+  threadId: string,
+  userId: string,
+  timestamp: number | Date,
+};
+
 export type ThreadNotificationJobData = { thread: DBThread };
 
 export type Queues = {
