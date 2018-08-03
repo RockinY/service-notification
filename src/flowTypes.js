@@ -196,3 +196,12 @@ export type DBUsersThreads = {
   userId: string,
   lastSeen?: Date | number
 }
+
+type ReactionType = 'like';
+export type DBReaction = {
+  id: string,
+  messageId: string,
+  timestamp: Date,
+  type: ReactionType,
+  userId: string,
+};
