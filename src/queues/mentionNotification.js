@@ -1,5 +1,5 @@
 // @flow
-const debug = require('debug')('athena:queue:mention-notification');
+const debug = require('debug')('service-notification:queue:mention-notification');
 import Raven from '../utils/raven';
 import { toPlainText, toState } from '../utils/draft';
 import truncate from '../utils/truncate';

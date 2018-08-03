@@ -1,5 +1,5 @@
 // @flow
-const debug = require('debug')('athena:queue:community-notification');
+const debug = require('debug')('service-notification:queue:community-notification');
 import Raven from '../utils/raven';
 import { fetchPayload } from '../utils/payloads';
 import { getDistinctActors } from '../utils/actors';

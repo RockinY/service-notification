@@ -1,6 +1,6 @@
 // @flow
 const debug = require('debug')(
-  'athena:queue:user-requested-join-private-channel'
+  'service-notification:queue:user-requested-join-private-channel'
 );
 import Raven from '../utils/raven';
 import { getCommunityById } from '../models/community';
@@ -78,7 +78,7 @@ export default async (job: Job<PrivateChannelRequestJobData>) => {
   );
 
   return Promise.all([
-    usersNotificationPromises, // update or store usersNotifications in-app
+    ...usersNotificationPromises, // update or store usersNotifications in-app
   ]).catch(err => {
     debug('❌ Error in job:\n');
     debug(err);

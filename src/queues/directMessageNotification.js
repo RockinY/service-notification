@@ -1,5 +1,5 @@
 // @flow
-const debug = require('debug')('athena:queue:direct-message-notification');
+const debug = require('debug')('service-notification:queue:direct-message-notification');
 import Raven from '../utils/raven';
 import { fetchPayload, createPayload } from '../utils/payloads';
 import { getDistinctActors } from '../utils/actors';

@@ -1,6 +1,6 @@
 // @flow
 const debug = require('debug')(
-  'service-notification:queue:user-request-private-channel-approved'
+  'service-notification:queue:user-request-private-community-approved'
 );
 import Raven from '../utils/raven';
 import { getCommunityById } from '../models/community';
@@ -11,20 +11,19 @@ import { fetchPayload } from '../utils/payloads';
 import isEmail from 'validator/lib/isEmail';
 import type {
   Job,
-  PrivateChannelRequestApprovedJobData,
+  PrivateCommunityRequestApprovedJobData,
 } from '../utils/types';
 
-export default async (job: Job<PrivateChannelRequestApprovedJobData>) => {
-  const { userId, channelId, communityId, moderatorId } = job.data;
-  debug(`user request to join channel ${channelId} approved`);
+export default async (job: Job<PrivateCommunityRequestApprovedJobData>) => {
+  const { userId, communityId, moderatorId } = job.data;
+  debug(`user request to join community ${communityId} approved`);
 
-  const [actor, context, entity] = await Promise.all([
+  const [actor, context] = await Promise.all([
     fetchPayload('USER', moderatorId),
     fetchPayload('COMMUNITY', communityId),
-    fetchPayload('CHANNEL', channelId),
   ]);
 
-  const eventType = 'PRIVATE_CHANNEL_REQUEST_APPROVED';
+  const eventType = 'PRIVATE_COMMUNITY_REQUEST_APPROVED';
 
   // construct a new notification record to either be updated or stored in the db
   const nextNotificationRecord = Object.assign(
@@ -33,17 +32,16 @@ export default async (job: Job<PrivateChannelRequestApprovedJobData>) => {
       event: eventType,
       actors: [actor],
       context,
-      entities: [entity],
+      entities: [context],
     }
   );
 
   // update or store a record in the notifications table, returns a notification
   const updatedNotification = await storeNotification(nextNotificationRecord);
 
-  // get all the user data for the owners
+  const community = await getCommunityById(communityId);
   const recipients = await getUsers([userId]);
 
-  // for each owner, create a notification for the app
   const usersNotificationPromises = recipients.map(recipient =>
     storeUsersNotifications(updatedNotification.id, recipient.id)
   );
