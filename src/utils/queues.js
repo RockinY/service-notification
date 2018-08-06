@@ -3,11 +3,11 @@ import {
   SEND_PUSH_NOTIFICATIONS,
   MENTION_NOTIFICATION
 } from '../queues/constants'
-const createQueue = require('./createQueue')
+import createQueue from './createQueue'
 const EventEmitter = require('events')
 
 exports.QUEUE_NAMES = {
-  sendNotificationAsPushQueue: SEND_PUSH_NOTIFICATIONS
+  sendNotificationAsPushQueue: SEND_PUSH_NOTIFICATIONS,
   sendMentionNotificationQueue: MENTION_NOTIFICATION
 }
 

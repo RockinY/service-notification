@@ -82,7 +82,7 @@ export default async (job: Job<MessageNotificationJobData>) => {
   const permissionedRecipients = await Promise.all(
     filteredRecipients.map(async user => {
       const [channelPermissions, communityPermissions] = await Promise.all([
-        getUserPermissionsInChannel(user.userId, thread.channelId)
+        getUserPermissionsInChannel(user.userId, thread.channelId),
         getUserPermissionsInCommunity(thread.communityId, user.userId)
       ])
       const isNotBlocked = !channelPermissions.isBlocked && !communityPermissions.isBlocked

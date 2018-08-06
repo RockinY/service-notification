@@ -2,10 +2,22 @@
   "name": "service-notification",
   "version": "0.0.1",
   "description": "Notification worker",
-  "scripts": {},
   "license": "MIT",
   "author": "BranLiang",
+  "scripts": {
+    "dev": "DEBUG=service-notification backpack",
+    "start": "node ./build/main",
+    "prebuild": "rm -rf ./build",
+    "build": "npm run prebuild && backpack build",
+    "deploy": "npm run start"
+  },
   "devDependencies": {
+    "babel-plugin-syntax-async-generators": "^6.13.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "backpack-core": "^0.7.0",
     "dotenv": "^6.0.0",
     "flow-bin": "^0.77.0"
@@ -17,6 +29,7 @@
     "draft-js": "^0.10.5",
     "ioredis": "^3.2.2",
     "querystring": "^0.2.0",
+    "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
     "toobusy-js": "^0.5.1",
     "validator": "^10.5.0",
