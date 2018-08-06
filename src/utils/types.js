@@ -3,7 +3,8 @@ import type {
   DBChannel,
   DBReaction,
   DBThread,
-  DBThreadReaction
+  DBThreadReaction,
+  DBNotificationsJoin
 } from '../flowTypes'
 
 export type Job<JobData> = {|
@@ -86,6 +87,11 @@ export type UserThreadLastSeenJobData = {
 };
 
 export type ThreadNotificationJobData = { thread: DBThread };
+
+export type PushNotificationsJobData = {
+  // This gets passed a join of the userNotification and the notification record
+  notification: DBNotificationsJoin,
+};
 
 export type Queues = {
   

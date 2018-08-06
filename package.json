@@ -19,6 +19,7 @@
     "querystring": "^0.2.0",
     "rethinkdbdash": "^2.3.31",
     "toobusy-js": "^0.5.1",
-    "validator": "^10.5.0"
+    "validator": "^10.5.0",
+    "web-push": "^3.3.2"
   }
 }

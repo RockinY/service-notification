@@ -5,15 +5,10 @@ import {
 import { sendNotificationAsPushQueue } from '../utils/queues'
 
 const sendDeduplicatedPushNotification = notification => {
-  // By using notification.id and notification.userId here we make sure that even when multiple instances of athena are running
-  // and are adding this job to the queue it gets deduplicated
+  // Over write the default jobId to ensure the job is unique on multiple instance running
   sendNotificationAsPushQueue.add(
     { notification },
-    {
-      jobId: `notification-${notification.id}-${notification.userId}-${
-        notification.modifiedAt
-      }`,
-    }
+    { jobId: `notification-${notification.id}-${notification.userId}-${notification.modifiedAt}`}
   );
 };
 

@@ -214,3 +214,8 @@ export type DBThreadReaction = {
   deletedAt?: Date,
   userId: string,
 };
+
+export type DBNotificationsJoin = {
+  ...$Exact<DBUsersNotifications>,
+  ...$Exact<DBNotification>,
+};
