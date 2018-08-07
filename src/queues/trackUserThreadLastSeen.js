@@ -1,5 +1,5 @@
 // @flow
-const debug = require('debug')('athena:queue:track-user-thread-last-seen');
+const debug = require('debug')('service-notification:queue:track-user-thread-last-seen');
 import Raven from '../utils/raven';
 import {
   getUsersThread,

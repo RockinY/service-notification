@@ -1,5 +1,5 @@
 // @flow
-const debug = require('debug')('athena:queue:new-thread-notification');
+const debug = require('debug')('service-notification:queue:new-thread-notification');
 import Raven from '../utils/raven';
 import axios from 'axios';
 import getMentions from '../utils/getMentions';

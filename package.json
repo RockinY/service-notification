@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "BranLiang",
   "scripts": {
-    "dev": "DEBUG=service-notification backpack",
+    "dev": "DEBUG=service-notification* backpack",
     "start": "node ./build/main",
     "prebuild": "rm -rf ./build",
     "build": "npm run prebuild && backpack build",
