@@ -43,7 +43,7 @@ export const storeNotification = (
       ...notification,
       createdAt: new Date(),
       modifiedAt: new Date()
-    })
+    }, { returnChanges: true })
     .run()
     .then(result => result.changes[0].new_val)
 }
