@@ -4,7 +4,7 @@ import webPush from 'web-push';
 
 try {
   webPush.setVapidDetails(
-    process.env.PUSH_CLIENT_URL,
+    'mailto:bran@corran.cn',
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
   );
