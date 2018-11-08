@@ -6,7 +6,7 @@
   "author": "BranLiang",
   "scripts": {
     "dev": "DEBUG=service-notification* backpack",
-    "start": "node ./build/main",
+    "start": "DEBUG=service-notification* node ./build/main",
     "prebuild": "rm -rf ./build",
     "build": "npm run prebuild && backpack build",
     "deploy": "npm run start"
