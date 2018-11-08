@@ -22,13 +22,13 @@ export const parseActors = (actors, currentUser) => {
 };
 
 const EVENT_VERB = {
-  MESSAGE_CREATED: 'replied in',
-  REACTION_CREATED: 'liked',
-  CHANNEL_CREATED: 'created in',
-  USER_JOINED_COMMUNITY: 'joined',
-  MENTION_MESSAGE: 'mentioned you in',
-  MENTION_THREAD: 'mentioned you in',
-  THREAD_REACTION_CREATED: 'liked',
+  MESSAGE_CREATED: '回复了你',
+  REACTION_CREATED: '给你点赞',
+  CHANNEL_CREATED: '已经成功创建',
+  USER_JOINED_COMMUNITY: '加入了社区',
+  MENTION_MESSAGE: '提到了你',
+  MENTION_THREAD: '提到了你',
+  THREAD_REACTION_CREATED: '给你点赞',
 };
 
 const contextToString = (context, currentUser) => {
@@ -37,21 +37,21 @@ const contextToString = (context, currentUser) => {
     case 'THREAD': {
       const payload = context.payload;
       const isCreator = payload.creatorId === currentUser.id;
-      const str = isCreator ? 'your thread' : '';
-      return `${str} ${payload.content.title}`;
+      const str = isCreator ? '对你的帖子' : '';
+      return `${str}${payload.content.title}`;
     }
     case 'DIRECT_MESSAGE_THREAD': {
-      return 'in a direct message thread';
+      return '在对话中';
     }
     case 'THREAD_REACTION': {
-      return 'your thread';
+      return '在你的帖子里';
     }
     case 'MESSAGE':
-      return 'your reply';
+      return '在你的消息里';
     case 'COMMUNITY':
-      return context.payload.name;
+      return `在社区${context.payload.name}里`
     case 'CHANNEL':
-      return context.payload.name;
+      return `在频道${context.payload.name}里`
     default:
       return;
   }
@@ -89,7 +89,7 @@ const formatNotification = (incomingNotification, currentUserId) => {
     notification.context &&
     contextToString(notification.context, { id: currentUserId });
 
-  let title = `${actors} ${event} ${context}`;
+  let title = `${actors}${context}${event}`;
   let href, body;
 
   switch (notification.event) {
@@ -125,17 +125,8 @@ const formatNotification = (incomingNotification, currentUserId) => {
         ({ payload }) => payload.senderId !== currentUserId
       );
 
-      if (notification.context.type === 'DIRECT_MESSAGE_THREAD') {
-        title = `New ${
-          entities.length > 1 ? 'replies' : 'reply'
-        } in a direct message thread`;
-        href = `/messages/${notification.context.id}`;
-      } else {
-        title = `${notification.context.payload.content.title} (${
-          entities.length
-        } new ${entities.length > 1 ? 'replies' : 'reply'})`;
-        href = `/thread/${notification.context.id}`;
-      }
+      title = `收到一条新消息`;
+      href = `/messages/${notification.context.id}`;
       body = entities
         .map(({ payload }) => {
           const sender = notification.actors.find(
@@ -177,18 +168,15 @@ const formatNotification = (incomingNotification, currentUserId) => {
     }
     case 'CHANNEL_CREATED': {
       const entities = notification.entities;
-      const newChannelCount =
-        entities.length > 1
-          ? `${entities.length} new channels were`
-          : 'A new channel was';
+      const newChannelCount = `${entities.length}个频道`
 
-      title = `${newChannelCount} ${event} ${context}`;
+      title = `${newChannelCount}${context}${event}`;
       body = sentencify(entities.map(({ payload }) => `"${payload.name}"`));
       break;
     }
     case 'USER_JOINED_COMMUNITY': {
       href = `/${notification.context.payload.slug}`;
-      title = `${actors} ${event} ${context}`;
+      title = `${actors}${context}${event}`;
       break;
     }
 
@@ -208,8 +196,7 @@ const formatNotification = (incomingNotification, currentUserId) => {
       // sort and order the threads
       const threads = sortThreads(notification.entities, { id: currentUserId });
 
-      const newThreadCount =
-        threads.length > 1 ? `New threads were` : 'A new thread was';
+      const newThreadCount =  `${threads.length}个新的帖子`
 
       const urlBase =
         notification.context.type === 'DIRECT_MESSAGE_THREAD'
@@ -217,13 +204,13 @@ const formatNotification = (incomingNotification, currentUserId) => {
           : 'thread';
 
       href = `/${urlBase}/${threads[0].id}`;
-      title = `${newThreadCount} published in ${context}`;
+      title = `${newThreadCount}${context}发布了`;
       body = sentencify(threads.map(thread => `"${thread.content.title}"`));
       break;
     }
     case 'COMMUNITY_INVITE': {
       href = `/${notification.context.payload.slug}`;
-      title = `${actors} invited you to join their community, ${context}`;
+      title = `${actors}${context}邀请你的加入`;
       break;
     }
     default:
