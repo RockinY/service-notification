@@ -36,6 +36,9 @@ export default (
           ...payload,
           raw: undefined,
         });
+  debug(subscription)
+  debug(pl)
+  debug(options)
   return webPush.sendNotification(subscription, pl, {
     TTL: 86400, // Default TTL: One day
     ...options,
